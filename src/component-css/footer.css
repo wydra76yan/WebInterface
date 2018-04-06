@@ -1,9 +1,8 @@
 .footer{
-  color: white;
-  background: #2E64FE;
+  color: #C7E3C8;
+  background: #43A047;
   min-height: 10vh;
   font-size: 30px;
-  font-style:normal;
   display: flex;
   align-items: center;
   justify-content: center;

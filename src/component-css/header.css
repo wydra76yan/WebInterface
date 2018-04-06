@@ -1,22 +1,21 @@
 .header{
-  background-color: #2E64FE;
+  background-color: #43A047;
   padding: 10px;
-  color: white;
   display: flex;
   justify-content: space-between;
   align-items: center;
   min-height: 10vh;
 }
 .title{
-  font-style: normal;
+  color: #C7E3C8;
   font-size: 30px;
 }
 .addNew{
   padding:5px;
-  color: white;
-  font-style: normal;
-  background-color: #58ACFA;
+  border-radius: 25px;
+  color: #E1F0E2;
+  background-color: #69B36C;
   width: auto;
-  border: none;
   font-size: 20px;
+  border-color: #E1F0E2;
 }

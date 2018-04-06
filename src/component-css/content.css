@@ -1,8 +1,25 @@
 .content{
-  color: white;
-  background-color: #58ACFA;
+  padding: 15px;
+  background-color: #DDDDDD;
   min-height: 80vh;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+
+}
+
+.todo{
+  padding:10px;
+  border-radius: 25px;
+  color: #E1F0E2;
+  border-color: #43A047;
+  background-color: #69B36C;
+  width: auto;
+  font-size: 20px;
+}
+
+.todoList{
+  display: flex;
+  justify-content: space-between;
+
+
 }

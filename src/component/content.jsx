@@ -19,7 +19,7 @@ const TodoList = ({todos, remove, description}) => {
   const todoNode = todos.map((todo) => {
     return (<Todo todo={todo} key={todo.id} remove={remove} description={description}/>)
   });
-  return (<ul>{todoNode}</ul>);
+  return (<ul class="todoList">{todoNode}</ul>);
 }
 
 export default class Content extends React.Component{
