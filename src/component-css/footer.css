@@ -1,5 +1,10 @@
 .footer{
   color: white;
-  background: lightblue;
+  background: #2E64FE;
+  min-height: 10vh;
+  font-size: 30px;
+  font-style:normal;
   display: flex;
+  align-items: center;
+  justify-content: center;
 }

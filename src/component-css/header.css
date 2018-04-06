@@ -1,5 +1,22 @@
 .header{
-  background-color: lightblue;
+  background-color: #2E64FE;
+  padding: 10px;
   color: white;
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 10vh;
+}
+.title{
+  font-style: normal;
+  font-size: 30px;
+}
+.addNew{
+  padding:5px;
+  color: white;
+  font-style: normal;
+  background-color: #58ACFA;
+  width: auto;
+  border: none;
+  font-size: 20px;
 }

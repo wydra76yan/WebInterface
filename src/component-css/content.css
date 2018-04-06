@@ -1,5 +1,8 @@
 .content{
   color: white;
+  background-color: #58ACFA;
+  min-height: 80vh;
   display: flex;
-  background-color: blue;
+  align-items: center;
+  justify-content: center;
 }
