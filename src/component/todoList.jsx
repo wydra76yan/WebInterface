@@ -41,15 +41,15 @@ export default class TodoList extends React.Component {
     return (
       <div className="todoListMain">
           <form onSubmit={this.addItem}>
-            <input ref={(a) => this._inputText = a}
+          <p><input ref={(a) => this._inputText = a}
                placeholder="enter task">
-            </input>
-            <input ref={(b) => this._inputDescription = b}
+            </input></p>
+          <p><input ref={(b) => this._inputDescription = b}
                placeholder="enter description">
-            </input>
+            </input></p>
             <button type="submit">add</button>
           </form>
-        <TodoItems entries={this.state.items}/>
+          <TodoItems entries={this.state.items}/>
       </div>
     );
   }

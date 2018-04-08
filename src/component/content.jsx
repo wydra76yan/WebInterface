@@ -1,6 +1,9 @@
 import React from 'react'
 import '../component-css/content.css';
+//import Popup from './header.jsx';
 import TodoList from './todoList.jsx';
+
+
 
 
 
@@ -21,16 +24,22 @@ import TodoList from './todoList.jsx';
 //   e.preventDefault();
 // }
 //
-// const TodoList = ({todos, remove, description}) => {
-//   const todoNode = todos.map((todo) => {
-//     return (<Todo todo={todo} key={todo.id} remove={remove} description={description}/>)
-//   });
-//   return (<ul class="todoList">{todoNode}</ul>);
-// }
+
 
 
 
 export default class Content extends React.Component{
+
+  // constructor(props) {
+  //   super(props);
+  //
+  //   this.state = {
+  //     items: []
+  //   };
+  //
+  //   //this.addItem = this.addItem.bind(this);
+  // }
+
   render(){
     return (
       <div class="content">
