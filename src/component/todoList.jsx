@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import TodoItems from './todoItems.jsx';
 
 export default class TodoList extends React.Component {
 
@@ -13,9 +14,10 @@ export default class TodoList extends React.Component {
   }
 
   addItem(e) {
-  if (this._inputElement.value !== "") {
+  if (this._inputText.value !== "" && this._inputDescription.value !== "") {
     var newItem = {
-      text: this._inputElement.value,
+      text: this._inputText.value,
+      description: this._inputDescription.value,
       key: Date.now()
     };
 
@@ -25,7 +27,8 @@ export default class TodoList extends React.Component {
       };
     });
 
-    this._inputElement.value = "";
+    this._inputText.value = "";
+    this._inputDescription.value = "";
   }
 
   console.log(this.state.items);
@@ -37,14 +40,16 @@ export default class TodoList extends React.Component {
   render() {
     return (
       <div className="todoListMain">
-        <div className="header">
           <form onSubmit={this.addItem}>
-            <input ref={(a) => this._inputElement = a}
+            <input ref={(a) => this._inputText = a}
                placeholder="enter task">
+            </input>
+            <input ref={(b) => this._inputDescription = b}
+               placeholder="enter description">
             </input>
             <button type="submit">add</button>
           </form>
-        </div>
+        <TodoItems entries={this.state.items}/>
       </div>
     );
   }
