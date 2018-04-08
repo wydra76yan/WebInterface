@@ -27,7 +27,7 @@ export default class Content extends React.Component{
     return (
       <div class="content">
         <TodoList todos={
-            [{id:1, text:'kek', description:'First TODO'},{id:2, text:'lol', description:'Second TODO'}]
+            [{id:1, text:'kek', description:'First TODO'},{id:2, text:'lol', description:'Second TODO'},{id:3, text:'lol', description:'Third TODO'}]
           }/>
       </div>
     );

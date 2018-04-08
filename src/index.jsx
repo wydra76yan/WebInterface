@@ -1,5 +1,6 @@
  import _ from 'lodash';
  import './style.css';
+ import './component-css/addnew-popup.css';
 
 import Header from './component/header.jsx';
 import Content from './component/content.jsx';
