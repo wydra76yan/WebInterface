@@ -1,9 +1,11 @@
 .footer{
   color: #C7E3C8;
   background: #43A047;
-  min-height: 10vh;
-  font-size: 30px;
+  max-height: 10vh;
+  font-size: 35px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;
 }

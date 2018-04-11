@@ -1,49 +1,21 @@
 import React from 'react'
 import '../component-css/content.css';
-//import Popup from './header.jsx';
 import TodoList from './todoList.jsx';
-
-
-
-
-
-// const Todo =({todo, remove, description}) =>{
-//   return(
-//     <li class="todo">
-//       <p>{todo.text}</p>
-//       <p>{todo.description}</p>
-//       <div>
-//         <button>Des</button>
-//         <button>Del</button>
-//       </div>
-//     </li>
-//   );
-// }
-//
-// addTodo(e){
-//   e.preventDefault();
-// }
-//
-
-
-
+import TodoItems from './todoItems.jsx';
 
 export default class Content extends React.Component{
 
-  // constructor(props) {
-  //   super(props);
-  //
-  //   this.state = {
-  //     items: []
-  //   };
-  //
-  //   //this.addItem = this.addItem.bind(this);
-  // }
-
   render(){
     return (
-      <div class="content">
-        <TodoList/>
+      <div className='content'>
+        <div className='inputForm'>
+          <h1>New TODO</h1>
+          <TodoList/>
+        </div>
+        <div className='listForm'>
+          <h1>TODO List</h1>
+          <TodoItems/>
+        </div>
       </div>
     )
   }

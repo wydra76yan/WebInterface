@@ -4,23 +4,60 @@
   min-height: 80vh;
   display: flex;
   align-items: flex-start;
-
-}
-
-.todo{
-  margin:20px;
-  padding:10px;
-  border-radius: 25px;
-  color: #E1F0E2;
-  border-color: #43A047;
-  background-color: #69B36C;
-  width: auto;
-  font-size: 20px;
-}
-
-.todoList{
-  display: flex;
   justify-content: space-between;
+}
 
+.inputForm{
+  border-radius: 25px;
+  background:  #43A047;
+  color: #E1F0E2;
+  padding: 15px;
+  height: 75vh;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: column;
 
 }
+
+.inputForm{
+  border-radius: 25px;
+  background:  #43A047;
+  color: #E1F0E2;
+  padding: 15px;
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+
+}
+
+.todoMain{
+  display: flex;
+  flex-direction: column;
+}
+
+.listForm{
+  border-radius: 25px;
+  background:  #43A047;
+  color: #E1F0E2;
+  padding: 15px;
+  height: 75vh;
+  width: 155vh;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+input{
+   border-radius: 25px;
+   font-size: 16px;
+   background-color: #E1F0E2;
+   color: #43A047;
+ }
+
+button{
+   border-radius: 25px;
+   font-size: 16px;
+   background-color: #E1F0E2;
+   color: #43A047;
+ }

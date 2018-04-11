@@ -4,12 +4,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-height: 10vh;
-}
-.title{
+  max-height: 10vh;
   color: #C7E3C8;
-  font-size: 30px;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
+
 .addNew{
   padding:5px;
   border-radius: 25px;

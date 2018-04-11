@@ -24,21 +24,12 @@ export default class Header extends React.Component {
       showPopup: false
     };
   }
-  togglePopup() {
-    this.setState({
-      showPopup: !this.state.showPopup
-    });
-  }
+
+
   render() {
     return(
       <header class="header">
-        <p class="title"> TODO App </p>
-        <button class="addNew" onClick={this.togglePopup.bind(this)}> Add new TODO item </button>
-          {this.state.showPopup
-            ?
-            <Popup saveTodo={this.togglePopup.bind(this)}/>
-            : null
-          }
+        <h1>TODO App</h1>
       </header>
 
     );
