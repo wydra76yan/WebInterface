@@ -1,5 +1,6 @@
 import React from 'react';
 import TodoItems from './todoItems.jsx';
+import '../component-css/content.css';
 
 export default class TodoList extends React.Component {
 
@@ -29,17 +30,25 @@ export default class TodoList extends React.Component {
 
     this._inputText.value = "";
     this._inputDescription.value = "";
+
+    e.preventDefault();
   }
-
-  console.log(this.state.items);
-
-  e.preventDefault();
 }
+  deleteItem(key) {
+    var filteredItems = this.state.items.filter(function (item) {
+      return (item.key !== key);
+    });
 
+    this.setState({
+      items: filteredItems
+    })
+  }
 
   render() {
     return (
-        <form className="todoMain" onSubmit={this.addItem}>
+      <div className='todosForm'>
+        <form className="inputForm" onSubmit={this.addItem}>
+          <h1>New TODO Item</h1>
           <input ref={(a) => this._inputText = a}
                placeholder="Enter task">
             </input>
@@ -48,6 +57,9 @@ export default class TodoList extends React.Component {
             </input>
           <button type="submit">Add</button>
         </form>
+          <TodoItems entries={this.state.items}
+                     delete={this.deleteItem}/>
+      </div>
     );
   }
 }
