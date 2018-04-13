@@ -10,7 +10,7 @@ export default class TodoItems extends React.Component {
   }
 
   delete(key){
-    this.props.delete(key); 
+    this.props.delete(key);
   }
 
   createTasks(item) {
@@ -25,10 +25,12 @@ export default class TodoItems extends React.Component {
     const listItems = todoEntries.map(this.createTasks);
 
     return (
-      <ul className="theList">
-        <h1>TODO List</h1>
-          {listItems}
-      </ul>
+      <div className="listForm">
+        <ul className="theList">
+          <h1>TODO List</h1>
+            {listItems}
+        </ul>
+      </div>
     );
   }
 };

@@ -12,6 +12,7 @@ export default class TodoList extends React.Component {
     };
 
     this.addItem = this.addItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   addItem(e) {
@@ -42,6 +43,7 @@ export default class TodoList extends React.Component {
     this.setState({
       items: filteredItems
     })
+
   }
 
   render() {

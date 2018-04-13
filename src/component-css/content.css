@@ -19,6 +19,7 @@
   flex-direction: column;
 }
 
+
 .todosForm{
   display: flex;
   flex-direction: row;
@@ -26,8 +27,11 @@
   margin:10px;
 }
 
+
+
 input{
-   border-radius: 25px;
+   margin: 10px;
+   padding: 5px;
    font-size: 16px;
    background-color: #E1F0E2;
    color: #43A047;
