@@ -22,7 +22,9 @@ export default class TodoItems extends React.Component {
     this.props.like(key);
   }
 
-
+  complete(key){
+    this.props.complete(key);
+  }
 
   createTasks(item) {
     return <li class='todo' key={item.key}>
@@ -31,6 +33,7 @@ export default class TodoItems extends React.Component {
              <ul className="rightPart">
                <button onClick={() => this.delete(item.key)}></button>
                <button onClick={() => this.like(item.key)}></button>
+               <button onClick={() => this.complete(item.key)}></button>
              </ul>
            </li>
   }
