@@ -6,19 +6,37 @@ export default class TodoItems extends React.Component {
   constructor(props){
     super(props);
 
-    this.createTasks =this.createTasks.bind(this);
+    this.state = {
+      item:[]
+    }
+
+    this.createTasks = this.createTasks.bind(this);
+
   }
 
   delete(key){
     this.props.delete(key);
   }
 
+  like(key){
+    this.props.like(key);
+  }
+
+
+
   createTasks(item) {
-    return <li class='todo' onClick={() => this.delete(item.key)} key={item.key}>
+    return <li class='todo' key={item.key}>
              <p class="title">{item.text}</p>
              <p class="description">{item.description}</p>
+             <ul className="rightPart">
+               <button onClick={() => this.delete(item.key)}></button>
+               <button onClick={() => this.like(item.key)}></button>
+             </ul>
            </li>
   }
+
+
+
 
   render() {
     const todoEntries = this.props.entries;

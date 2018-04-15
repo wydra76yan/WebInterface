@@ -13,13 +13,16 @@ export default class TodoList extends React.Component {
 
     this.addItem = this.addItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.likeItem = this.likeItem.bind(this);
   }
 
   addItem(e) {
+//  const { items } = this.state;
   if (this._inputText.value !== "" && this._inputDescription.value !== "") {
     var newItem = {
       text: this._inputText.value,
       description: this._inputDescription.value,
+      isLiked: false,
       key: Date.now()
     };
 
@@ -32,10 +35,30 @@ export default class TodoList extends React.Component {
     this._inputText.value = "";
     this._inputDescription.value = "";
 
+
+
     e.preventDefault();
   }
 }
+
+
+
+  likeItem(key){
+    console.log(this.state.items);
+    var selectedKey = this.state.items.findIndex(item => {
+      return (item.key === key);
+    });
+    this.state.items[selectedKey].isLiked = !this.state.items[selectedKey].isLiked;
+    this.setState((prevState)=>{
+      prevState.items.splice(selectedKey,1,this.state.items[selectedKey])
+      return{
+        prevState:[]
+      }
+    })
+  }
+
   deleteItem(key) {
+    console.log(this.state.items);
     var filteredItems = this.state.items.filter(function (item) {
       return (item.key !== key);
     });
@@ -45,6 +68,7 @@ export default class TodoList extends React.Component {
     })
 
   }
+
 
   render() {
     return (
@@ -60,7 +84,8 @@ export default class TodoList extends React.Component {
           <button type="submit">Add</button>
         </form>
           <TodoItems entries={this.state.items}
-                     delete={this.deleteItem}/>
+                     delete={this.deleteItem}
+                     like={this.likeItem}/>
       </div>
     );
   }
