@@ -6,9 +6,12 @@ export default class TodoItems extends React.Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      item:[]
-    }
+  this.state = {
+      item:{
+        isLiked:false,
+        completed:false
+      }
+  }
 
     this.createTasks = this.createTasks.bind(this);
 
@@ -20,22 +23,33 @@ export default class TodoItems extends React.Component {
 
   like(key){
     this.props.like(key);
+    this.setState(({isLiked}) =>  ({ isLiked: !isLiked }));
   }
 
   complete(key){
     this.props.complete(key);
+    this.setState(({completed}) =>  ({ completed: !completed }));
   }
 
   createTasks(item) {
-    return <li class='todo' key={item.key}>
-             <p class="title">{item.text}</p>
-             <p class="description">{item.description}</p>
-             <ul className="rightPart">
-               <button onClick={() => this.delete(item.key)}></button>
-               <button onClick={() => this.like(item.key)}></button>
-               <button onClick={() => this.complete(item.key)}></button>
-             </ul>
-           </li>
+    return <div className='todo' key={item.key}>
+             <div className=" leftTodoPart">
+               <p class="title">{item.text}</p>
+               <p class="description">{item.description}</p>
+             </div>
+             <div className="rightTodoPart">
+               <i className="fas fa-times" onClick={() => this.delete(item.key)}></i>
+               <span>
+                 {item.isLiked ? (
+                   <i className="fas fa-thumbs-up" onClick={() => this.like(item.key)}/>)
+                     : (
+                       <i className="fas fa-thumbs-down" onClick={() => this.like(item.key)}/>
+                     )}
+               </span>
+               <i className={`fas fa-check ${item.completed ? "fa-check-active" : ""}`}
+                 onClick={() => this.complete(item.key)}/>
+             </div>
+           </div>
   }
 
 
@@ -46,8 +60,8 @@ export default class TodoItems extends React.Component {
     const listItems = todoEntries.map(this.createTasks);
 
     return (
-      <div className="listForm">
-        <ul className="theList">
+      <div className="listForm" placeholder="No TODO's">
+        <ul className="theList" >
           <h1>TODO List</h1>
             {listItems}
         </ul>
