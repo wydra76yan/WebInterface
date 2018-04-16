@@ -38,16 +38,17 @@ export default class TodoItems extends React.Component {
     this.setState(({commenting}) =>  ({ commenting: !commenting }));
   }
 
-  addComment(key, value){
-    console.log(item.comments);
-    this.props.addComment(key, value);
+  addComment(key){
+    //this.props.addComment(key, value);
 
     if (this._inputComment.value !== "") {
+      const {value} = this._inputComment.value;
+      this.props.commentItem(key, value);
 
-      this.setState(({comments}) => {
-          item.comments[this._inputComment.value]
-          value = {comments};
-      });
+      // this.setState(({comments}) => {
+      //     item.comments[this._inputComment.value]
+      //     value = {comments};
+      // });
         this._inputComment.value = "";
        }
   }
