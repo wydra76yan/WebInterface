@@ -1,0 +1,65 @@
+.todo{
+  padding:10px;
+  margin:10px;
+  border-radius: 25px;
+  min-width: 135vh;
+  color: #E1F0E2;
+  border-color: #43A047;
+  border-style: solid;
+  background-color: #69B36C;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+}
+
+ .listForm{
+  overflow: auto;
+  border-radius: 25px;
+  background:  #43A047;
+  color: #E1F0E2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.theList{
+  overflow: auto;
+  padding: 15px;
+  min-height: 75vh;
+  min-width: 155vh;
+}
+
+.rightTodoPart{
+  display: flex;
+  flex-direction: row;
+  align-items:center;
+}
+
+
+i{
+  margin: 10px;
+  font-size: 32px;
+}
+
+.title{
+  font-size: 18px;
+}
+
+.description{
+  font-size: 12px;
+}
+
+.fa-check-active {
+  color: #e74c3c;
+}
+
+.likeItem {
+  border-radius: 50%;
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+          transition:         transform .8s ease-in-out;
+}
+.likeItem:active {
+  -webkit-transform: rotate(90deg);
+          transform: rotate(90deg);
+}
