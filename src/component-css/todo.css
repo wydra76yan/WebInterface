@@ -1,10 +1,9 @@
-.todo{
+.topTodoPart{
   padding:10px;
-  margin:10px;
   border-radius: 25px;
   min-width: 135vh;
   color: #E1F0E2;
-  border-color: #43A047;
+  border-color: #69B36C;
   border-style: solid;
   background-color: #69B36C;
   display: flex;
@@ -12,9 +11,19 @@
   justify-content: space-between;
 
 }
+.todo{
+  margin:10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.inputCommentForm{
+  display: flex;
+  flex-direction: row;
+}
 
  .listForm{
-  overflow: auto;
   border-radius: 25px;
   background:  #43A047;
   color: #E1F0E2;
@@ -25,10 +34,12 @@
 
 .theList{
   overflow: auto;
+  height: 75vh;
   padding: 15px;
   min-height: 75vh;
   min-width: 155vh;
 }
+
 
 .rightTodoPart{
   display: flex;
@@ -36,6 +47,41 @@
   align-items:center;
 }
 
+li{
+  min-width: 105px;
+  min-height: 23px;
+  color: #43A047;
+  background-color:  #E1F0E2;
+  display: flex;
+  align-items: flex-start;
+  border-radius: 25px;
+}
+
+.theComments{
+  overflow: auto;
+  max-height: 10vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topComPart{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+}
+
+.comments{
+  border-color: #69B36C;
+  border-style: solid;
+  background-color: #69B36C;
+  width: 125vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: #C7E3C8;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
 
 i{
   margin: 10px;
@@ -54,12 +100,20 @@ i{
   color: #e74c3c;
 }
 
+input{
+   margin: 10px;
+   padding: 5px;
+   font-size: 16px;
+   background-color: #E1F0E2;
+   color: #43A047;
+ }
+
 .likeItem {
   border-radius: 50%;
   -webkit-transition: -webkit-transform .8s ease-in-out;
           transition:         transform .8s ease-in-out;
 }
 .likeItem:active {
-  -webkit-transform: rotate(90deg);
-          transform: rotate(90deg);
+  -webkit-transform: rotate(20deg);
+          transform: rotate(20deg);
 }

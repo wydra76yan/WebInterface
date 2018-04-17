@@ -15,7 +15,7 @@ export default class TodoList extends React.Component {
     this.deleteItem = this.deleteItem.bind(this);
     this.likeItem = this.likeItem.bind(this);
     this.completeItem = this.completeItem.bind(this);
-    this.commentItem = this.completeItem.bind(this);
+    this.commentItem = this.commentItem.bind(this);
   }
 
   addItem(e) {
@@ -26,6 +26,7 @@ export default class TodoList extends React.Component {
       description: this._inputDescription.value,
       isLiked: false,
       completed: false,
+      commenting: true,
       key: Date.now(),
       comments:[]
     };
@@ -41,17 +42,18 @@ export default class TodoList extends React.Component {
 
 
 
-    e.preventDefault();
+
   }
+  e.preventDefault();
 }
 
   commentItem(key, value) {
-    console.log(this.state.items);
     var selectedKey = this.state.items.findIndex(item => {
       return (item.key === key);
     });
+    console.log(this.state.items[selectedKey]);
 
-    this.state.items[selectedKey].comments = [...comments, value]
+    this.state.items[selectedKey].comments = [...this.state.items[selectedKey].comments, value]
 
     this.setState((prevState)=>{
         prevState.items.splice(selectedKey,1,this.state.items[selectedKey])
@@ -59,9 +61,9 @@ export default class TodoList extends React.Component {
           prevState
         }
     })
-
-
+    event.preventDefault();
   }
+
 
   completeItem(key){
     console.log(this.state.items);
@@ -121,7 +123,8 @@ export default class TodoList extends React.Component {
                      delete={this.deleteItem}
                      like={this.likeItem}
                      complete={this.completeItem}
-                     addComment={this.commentItem}/>
+                     addComment={this.commentItem}
+                     />
       </div>
     );
   }
