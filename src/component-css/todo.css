@@ -48,23 +48,28 @@
 }
 
 li{
-  min-width: 105px;
-  min-height: 23px;
-  color: #43A047;
-  background-color:  #E1F0E2;
-  display: flex;
-  align-items: flex-start;
   border-radius: 25px;
+  min-width: 105px;
+  min-height: 10px;
+  padding: 5px;
+  margin: 5px;
+  background: #E1F0E2;
+  color: #43A047;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 .theComments{
   overflow: auto;
-  max-height: 10vh;
+  min-height: 6vh;
+  max-height: 6vh;
   display: flex;
   flex-direction: column;
 }
 
 .topComPart{
+  margin: 10px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
@@ -100,6 +105,17 @@ i{
   color: #e74c3c;
 }
 
+.fa-times{
+  border-radius: 50%;
+  -webkit-transition: -webkit-transform .8s ease-in-out;
+          transition:         transform .8s ease-in-out;
+}
+
+.fa-times:hover{
+  -webkit-transform: rotate(360deg);
+          transform: rotate(360deg);
+}
+
 input{
    margin: 10px;
    padding: 5px;
@@ -110,10 +126,10 @@ input{
 
 .likeItem {
   border-radius: 50%;
-  -webkit-transition: -webkit-transform .8s ease-in-out;
-          transition:         transform .8s ease-in-out;
+  -webkit-transition: -webkit-transform .4s ease-in-out;
+          transition:         transform .4s ease-in-out;
 }
 .likeItem:active {
-  -webkit-transform: rotate(20deg);
-          transform: rotate(20deg);
+  -webkit-transform: rotate(10deg);
+          transform: rotate(10deg);
 }

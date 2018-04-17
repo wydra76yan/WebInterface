@@ -7,11 +7,7 @@ export default class TodoItems extends React.Component {
     super(props);
 
   this.state = {
-      item:{
-        isLiked:false,
-        completed:false,
-        comments:[]
-      }
+      item:{}
   }
 
     this.createTasks = this.createTasks.bind(this);
@@ -33,22 +29,30 @@ export default class TodoItems extends React.Component {
     this.setState(({completed}) =>  ({ completed: !completed }));
   }
 
+  isComment(key){
+    console.log(this.state.commenting);
+    this.props.isComment(key);
+    this.setState(
+      ({commenting}) => ({commenting: !commenting}));
+  }
+
 
   addComment(key, value){
     //this.props.addComment(key, value);
 
     if (this._inputComment.value !== "") {
-      value = this._inputComment.value;
+      const value = this._inputComment.value;
       this.props.addComment(key, value);
       console.log(value);
       console.log(key);
-    //  this.setState(({comments}) => ({comments: [...comms,"this._inputComment.value"]}))
+
 
       // this.setState(({comments}) => {
       //     comments[this._inputComment.value]
       // });
         this._inputComment.value = "";
        }
+       event.preventDefault();
   }
 
   createTasks(item) {
@@ -73,8 +77,17 @@ export default class TodoItems extends React.Component {
                </span>
                <i className={`fas fa-check ${item.completed ? "fa-check-active" : ""}`}
                  onClick={() => this.complete(item.key)}></i>
+               <span className="comItem">
+                   {item.commenting ? (
+                     <i className="fas fa-arrow-up" onClick={() => this.isComment(item.key)}/>)
+                       : (
+                         <i className="fas fa-arrow-down" onClick={() => this.isComment(item.key)}/>
+                       )}
+                 </span>
                </div>
              </div>
+
+             {item.commenting &&
              <div className="comments">
                <div className="topComPart">
                <h1>Comments</h1>
@@ -90,7 +103,7 @@ export default class TodoItems extends React.Component {
                    {item.comments.map(comment => <li>{comment}</li>)}
                   </ul>
                 </div>
-             </div>
+             </div>}
 
            </div>
   }

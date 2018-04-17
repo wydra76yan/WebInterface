@@ -16,6 +16,7 @@ export default class TodoList extends React.Component {
     this.likeItem = this.likeItem.bind(this);
     this.completeItem = this.completeItem.bind(this);
     this.commentItem = this.commentItem.bind(this);
+    this.isCommentItem = this.isCommentItem.bind(this);
   }
 
   addItem(e) {
@@ -26,10 +27,12 @@ export default class TodoList extends React.Component {
       description: this._inputDescription.value,
       isLiked: false,
       completed: false,
-      commenting: true,
+      commenting: false,
       key: Date.now(),
       comments:[]
     };
+
+    localStorage.setItem('newItem', JSON.stringify(newItem));
 
     this.setState((prevState) => {
       return {
@@ -39,10 +42,6 @@ export default class TodoList extends React.Component {
 
     this._inputText.value = "";
     this._inputDescription.value = "";
-
-
-
-
   }
   e.preventDefault();
 }
@@ -61,9 +60,22 @@ export default class TodoList extends React.Component {
           prevState
         }
     })
-    event.preventDefault();
+
   }
 
+  isCommentItem(key){
+    console.log(this.state.items);
+    var selectedKey = this.state.items.findIndex(item => {
+      return (item.key === key);
+    });
+    this.state.items[selectedKey].commenting = !this.state.items[selectedKey].commenting;
+    this.setState((prevState)=>{
+      prevState.items.splice(selectedKey,1,this.state.items[selectedKey])
+      return{
+        prevState
+      }
+    })
+  }
 
   completeItem(key){
     console.log(this.state.items);
@@ -124,6 +136,7 @@ export default class TodoList extends React.Component {
                      like={this.likeItem}
                      complete={this.completeItem}
                      addComment={this.commentItem}
+                     isComment={this.isCommentItem}
                      />
       </div>
     );
