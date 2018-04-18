@@ -92,6 +92,19 @@ li{
   border-bottom-right-radius: 25px;
 }
 
+.edit-form{
+  border-color: #69B36C;
+  border-style: solid;
+  background-color: #69B36C;
+  width: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: #C7E3C8;
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
+}
+
 i{
   margin: 10px;
   font-size: 32px;
@@ -107,6 +120,10 @@ i{
 
 .fa-check-active {
   color: #e74c3c;
+}
+
+.fa-edit-active{
+  color: #0040FF;
 }
 
 .fa-times{

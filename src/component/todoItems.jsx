@@ -32,6 +32,22 @@ export default class TodoItems extends React.Component {
     this.props.isComment(key);
   }
 
+  isEdit(key){
+    this.props.isEdit(key);
+  }
+
+  edit(key, valueT, valueD){
+    //this.props.addComment(key, value);
+
+    if (this._inputTitle.value !== "" && this._inputDescription.value !== "") {
+      const valueT = this._inputTitle.value;
+      const valueD = this._inputDescription.value;
+      this.props.edit(key, valueT, valueD);
+       this._inputTitle.value = "";
+       this._inputDescription.value = ""
+       }
+       event.preventDefault();
+  }
 
   addComment(key, value){
     //this.props.addComment(key, value);
@@ -41,12 +57,7 @@ export default class TodoItems extends React.Component {
       this.props.addComment(key, value);
       console.log(value);
       console.log(key);
-
-
-      // this.setState(({comments}) => {
-      //     comments[this._inputComment.value]
-      // });
-        this._inputComment.value = "";
+       this._inputComment.value = "";
        }
        event.preventDefault();
   }
@@ -80,6 +91,8 @@ export default class TodoItems extends React.Component {
                            <i className="fas fa-arrow-down" onClick={() => this.isComment(item.key)}/>
                          )}
                  </span>
+                 <i className={`fas fa-edit ${item.editing ? "fa-edit-active" : ""}`}
+                   onClick={() => this.isEdit(item.key)}></i>
               </div>
             </div>
 
@@ -87,7 +100,7 @@ export default class TodoItems extends React.Component {
                <div className="comments-form">
                  <div className="comments-form__top-comments-section">
                <h1>Comments</h1>
-                <form className="comments-form__input-form" onSubmit={() => this.addComment(item.key, item.value)}>
+                <form className="comments-form__input-form" onSubmit={() => this.addComment(item.key)}>
                   <input ref={(a) => this._inputComment = a}
                        placeholder="Enter comment">
                     </input>
@@ -98,6 +111,22 @@ export default class TodoItems extends React.Component {
                   <ul className="comments-form__comments-list">
                    {item.comments.map(comment => <li>{comment}</li>)}
                   </ul>
+                </div>
+             </div>}
+
+             {item.editing &&
+               <div className="edit-form">
+                 <div className="comments-form__top-comments-section">
+               <h1>Edit</h1>
+                <form className="comments-form__input-form" onSubmit={() => this.edit(item.key)}>
+                  <input ref={(a) => this._inputTitle = a}
+                       placeholder="Enter new Title">
+                    </input>
+                  <input ref={(b) => this._inputDescription = b}
+                       placeholder="Enter new Description">
+                    </input>
+                  <button className="fa fa-plus" type="submit"></button>
+                </form>
                 </div>
              </div>}
 
