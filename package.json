@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "start:dev": "webpack-dev-server"
+    "start:dev": "webpack-dev-server",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -33,7 +34,9 @@
   },
   "dependencies": {
     "react": "^16.3.1",
-    "react-dom": "^16.3.1"
+    "react-animate-height": "^1.0.1",
+    "react-dom": "^16.3.1",
+    "react-flip-move": "^3.0.1"
   },
   "keywords": []
 }

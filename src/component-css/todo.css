@@ -1,4 +1,4 @@
-.topTodoPart{
+.todo-item__top-todo-section{
   padding:10px;
   border-radius: 25px;
   min-width: 135vh;
@@ -11,19 +11,20 @@
   justify-content: space-between;
 
 }
-.todo{
+.todo-item{
   margin:10px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.inputCommentForm{
+.comments-form__input-form{
   display: flex;
   flex-direction: row;
 }
 
- .listForm{
+ .todo-list-form{
+  padding: 10px;
   border-radius: 25px;
   background:  #43A047;
   color: #E1F0E2;
@@ -32,7 +33,7 @@
   align-items: center;
 }
 
-.theList{
+.todo-item-list{
   overflow: auto;
   height: 75vh;
   padding: 15px;
@@ -40,8 +41,11 @@
   min-width: 155vh;
 }
 
+.todo-item:empty::before{
+  content: attr(data-empty-message);
+}
 
-.rightTodoPart{
+.todo-item__top-right-todo-section{
   display: flex;
   flex-direction: row;
   align-items:center;
@@ -60,7 +64,7 @@ li{
   align-items: center;
 }
 
-.theComments{
+.comments-form__comments-list{
   overflow: auto;
   min-height: 6vh;
   max-height: 6vh;
@@ -68,14 +72,14 @@ li{
   flex-direction: column;
 }
 
-.topComPart{
+.comments-form__top-comments-section{
   margin: 10px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
 }
 
-.comments{
+.comments-form{
   border-color: #69B36C;
   border-style: solid;
   background-color: #69B36C;
@@ -93,11 +97,11 @@ i{
   font-size: 32px;
 }
 
-.title{
+.todo-item__title{
   font-size: 18px;
 }
 
-.description{
+.todo-item__description{
   font-size: 12px;
 }
 
@@ -124,12 +128,12 @@ input{
    color: #43A047;
  }
 
-.likeItem {
+.todo-item__like {
   border-radius: 50%;
   -webkit-transition: -webkit-transform .4s ease-in-out;
           transition:         transform .4s ease-in-out;
 }
-.likeItem:active {
+.todo-item__like:active {
   -webkit-transform: rotate(10deg);
           transform: rotate(10deg);
 }

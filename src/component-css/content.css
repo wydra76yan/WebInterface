@@ -7,7 +7,7 @@
   justify-content: space-between;
 }
 
-.inputForm{
+.todo-form__input-form{
   border-radius: 25px;
   background:  #43A047;
   color: #E1F0E2;
@@ -20,7 +20,7 @@
 }
 
 
-.todosForm{
+.todo-form{
   display: flex;
   flex-direction: row;
   justify-content: space-between;

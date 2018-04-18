@@ -1,5 +1,6 @@
 import React from 'react'
 import '../component-css/todo.css';
+import FlipMove from "react-flip-move";
 
 export default class TodoItems extends React.Component {
 
@@ -21,19 +22,14 @@ export default class TodoItems extends React.Component {
 
   like(key){
     this.props.like(key);
-    this.setState(({isLiked}) =>  ({ isLiked: !isLiked }));
   }
 
   complete(key){
     this.props.complete(key);
-    this.setState(({completed}) =>  ({ completed: !completed }));
   }
 
   isComment(key){
-    console.log(this.state.commenting);
     this.props.isComment(key);
-    this.setState(
-      ({commenting}) => ({commenting: !commenting}));
   }
 
 
@@ -60,38 +56,38 @@ export default class TodoItems extends React.Component {
     // const comEntries = this.props.addComment;
     // const comList = comEntries.map(this.addComment)
 
-    return <div className='todo' key={item.key}>
-            <div className="topTodoPart">
-             <div className=" leftTodoPart">
-               <p class="title">{item.text}</p>
-               <p class="description">{item.description}</p>
-             </div>
-             <div className="rightTodoPart">
-               <i className="fas fa-times" onClick={() => this.delete(item.key)}></i>
-               <span className="likeItem">
-                 {item.isLiked ? (
-                   <i className="fas fa-thumbs-up" onClick={() => this.like(item.key)}/>)
-                     : (
-                       <i className="fas fa-thumbs-down" onClick={() => this.like(item.key)}/>
-                     )}
-               </span>
-               <i className={`fas fa-check ${item.completed ? "fa-check-active" : ""}`}
-                 onClick={() => this.complete(item.key)}></i>
-               <span className="comItem">
-                   {item.commenting ? (
-                     <i className="fas fa-arrow-up" onClick={() => this.isComment(item.key)}/>)
+    return <div className='todo-item' data-empty-message="No TODOs" key={item.key}>
+            <div className="todo-item__top-todo-section">
+               <div className="todo-item__top-left-todo-section">
+                 <p class="todo-item__title">{item.text}</p>
+                 <p class="todo-item__description">{item.description}</p>
+               </div>
+               <div className="todo-item__top-right-todo-section">
+                 <i className="fas fa-times" onClick={() => this.delete(item.key)}></i>
+                 <span className="todo-item__like">
+                   {item.isLiked ? (
+                     <i className="fas fa-thumbs-up" onClick={() => this.like(item.key)}/>)
                        : (
-                         <i className="fas fa-arrow-down" onClick={() => this.isComment(item.key)}/>
+                         <i className="fas fa-thumbs-down" onClick={() => this.like(item.key)}/>
                        )}
                  </span>
-               </div>
-             </div>
+                 <i className={`fas fa-check ${item.completed ? "fa-check-active" : ""}`}
+                   onClick={() => this.complete(item.key)}></i>
+                 <span className="todo-item__is-commenting">
+                     {item.commenting ? (
+                       <i className="fas fa-arrow-up" onClick={() => this.isComment(item.key)}/>)
+                         : (
+                           <i className="fas fa-arrow-down" onClick={() => this.isComment(item.key)}/>
+                         )}
+                 </span>
+              </div>
+            </div>
 
              {item.commenting &&
-             <div className="comments">
-               <div className="topComPart">
+               <div className="comments-form">
+                 <div className="comments-form__top-comments-section">
                <h1>Comments</h1>
-                <form className="inputCommentForm" onSubmit={() => this.addComment(item.key)}>
+                <form className="comments-form__input-form" onSubmit={() => this.addComment(item.key, item.value)}>
                   <input ref={(a) => this._inputComment = a}
                        placeholder="Enter comment">
                     </input>
@@ -99,7 +95,7 @@ export default class TodoItems extends React.Component {
                 </form>
                 </div>
                 <div>
-                  <ul className="theComments">
+                  <ul className="comments-form__comments-list">
                    {item.comments.map(comment => <li>{comment}</li>)}
                   </ul>
                 </div>
@@ -116,10 +112,12 @@ export default class TodoItems extends React.Component {
     const listItems = todoEntries.map(this.createTasks);
 
     return (
-      <div className="listForm" placeholder="No TODO's">
-        <ul className="theList" >
-          <h1>TODO List</h1>
+      <div className="todo-list-form" >
+        <h1>TODO List</h1>
+        <ul className="todo-item-list" >
+          <FlipMove duration={250} easing="ease-out">
             {listItems}
+          </FlipMove>
         </ul>
       </div>
     );

@@ -22,7 +22,7 @@ export default class TodoList extends React.Component {
   addItem(e) {
 //  const { items } = this.state;
   if (this._inputText.value !== "" && this._inputDescription.value !== "") {
-    var newItem = {
+    const newItem = {
       text: this._inputText.value,
       description: this._inputDescription.value,
       isLiked: false,
@@ -47,7 +47,7 @@ export default class TodoList extends React.Component {
 }
 
   commentItem(key, value) {
-    var selectedKey = this.state.items.findIndex(item => {
+    const selectedKey = this.state.items.findIndex(item => {
       return (item.key === key);
     });
     console.log(this.state.items[selectedKey]);
@@ -65,7 +65,7 @@ export default class TodoList extends React.Component {
 
   isCommentItem(key){
     console.log(this.state.items);
-    var selectedKey = this.state.items.findIndex(item => {
+    const selectedKey = this.state.items.findIndex(item => {
       return (item.key === key);
     });
     this.state.items[selectedKey].commenting = !this.state.items[selectedKey].commenting;
@@ -79,7 +79,7 @@ export default class TodoList extends React.Component {
 
   completeItem(key){
     console.log(this.state.items);
-    var selectedKey = this.state.items.findIndex(item => {
+    const selectedKey = this.state.items.findIndex(item => {
       return (item.key === key);
     });
     this.state.items[selectedKey].completed = !this.state.items[selectedKey].completed;
@@ -93,7 +93,7 @@ export default class TodoList extends React.Component {
 
   likeItem(key){
     console.log(this.state.items);
-    var selectedKey = this.state.items.findIndex(item => {
+    const selectedKey = this.state.items.findIndex(item => {
       return (item.key === key);
     });
     this.state.items[selectedKey].isLiked = !this.state.items[selectedKey].isLiked;
@@ -107,7 +107,7 @@ export default class TodoList extends React.Component {
 
   deleteItem(key) {
     console.log(this.state.items);
-    var filteredItems = this.state.items.filter(function (item) {
+    const filteredItems = this.state.items.filter(item => {
       return (item.key !== key);
     });
 
@@ -120,8 +120,8 @@ export default class TodoList extends React.Component {
 
   render() {
     return (
-      <div className='todosForm'>
-        <form className="inputForm" onSubmit={this.addItem}>
+      <div className='todo-form'>
+        <form className="todo-form__input-form" onSubmit={this.addItem}>
           <h1>New TODO Item</h1>
           <input ref={(a) => this._inputText = a}
                placeholder="Enter task">
