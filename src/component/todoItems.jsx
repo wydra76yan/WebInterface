@@ -12,8 +12,7 @@ export default class TodoItems extends React.Component {
   }
 
     this.createTasks = this.createTasks.bind(this);
-    this.addComment = this.addComment.bind(this);
-    this.edit = this.edit.bind(this);
+
 
   }
 
@@ -92,12 +91,21 @@ export default class TodoItems extends React.Component {
                    <div className="edit-form">
                      <h1>Edit</h1>
                      <form className="edit-form__input-form" onSubmit={() => this.edit(item.key)}>
-                         <input ref={(a) => this._inputTitle = a}
-                           placeholder="new title">
+                       <h2>Title</h2>
+                         <input
+                           ref={(a) => this._inputTitle = a}
+                           name="title"
+                           placeholder = {item.text}
+                           defaultValue = {item.text}
+                         >
                             </input>
+                            <h2>Description</h2>
                         <input ref={(b) => this._inputDescription = b}
-                          placeholder="new desc">
+                          name="description"
+                          placeholder = {item.description}
+                          defaultValue = {item.description}>
                            </input>
+                           <button type="submit"></button>
                   </form>
                   </div>
 
@@ -105,6 +113,7 @@ export default class TodoItems extends React.Component {
                   <form className="comments-form__input-form" onSubmit={() => this.addComment(item.key)}>
                     <h1 className="cmnts">Comments</h1>
                     <input ref={(a) => this._inputComment = a}
+                         name="comment"
                          placeholder="Enter comment">
                       </input>
                   </form>
@@ -126,6 +135,9 @@ export default class TodoItems extends React.Component {
   render() {
     const todoEntries = this.props.entries;
     const listItems = todoEntries.map(this.createTasks);
+
+    localStorage.setItem("items", JSON.stringify(todoEntries));
+    document.getElementsByClassName("todo-item-list").innerHTML = localStorage.getItem("items");
 
     return (
       <div className="todo-list-form" >
