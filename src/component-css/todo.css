@@ -11,6 +11,20 @@
   justify-content: space-between;
 
 }
+
+.popup-background{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0, 0.5);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .todo-item{
   margin:10px;
   display: flex;
@@ -18,10 +32,6 @@
   align-items: center;
 }
 
-.comments-form__input-form{
-  display: flex;
-  flex-direction: row;
-}
 
  .todo-list-form{
   padding: 10px;
@@ -53,7 +63,6 @@
 
 li{
   border-radius: 25px;
-  min-width: 105px;
   min-height: 10px;
   padding: 5px;
   margin: 5px;
@@ -64,46 +73,58 @@ li{
   align-items: center;
 }
 
+
+
 .comments-form__comments-list{
+  background-color: #43A047;
   overflow: auto;
-  min-height: 6vh;
-  max-height: 6vh;
+  height: 20vh;
+  border-radius: 25px;
   display: flex;
   flex-direction: column;
 }
 
-.comments-form__top-comments-section{
-  margin: 10px;
+.comments-form{
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.comments-form__input-form{
+  padding: 10px;
   display: flex;
   justify-content: space-between;
   flex-direction: row;
 }
 
-.comments-form{
-  border-color: #69B36C;
-  border-style: solid;
-  background-color: #69B36C;
-  width: 125vh;
+.edit-form__input-form{
+  padding: 10px;
+  background-color: #43A047;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  color: #C7E3C8;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+  border-radius: 25px;
 }
 
 .edit-form{
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.settings-form{
   border-color: #69B36C;
   border-style: solid;
   background-color: #69B36C;
   width: 100vh;
+  height: 86vh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   color: #C7E3C8;
-  border-bottom-left-radius: 25px;
-  border-bottom-right-radius: 25px;
+  border-radius: 25px;
 }
+
 
 i{
   margin: 10px;
@@ -125,6 +146,7 @@ i{
 .fa-edit-active{
   color: #0040FF;
 }
+
 
 .fa-times{
   border-radius: 50%;

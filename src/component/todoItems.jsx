@@ -13,6 +13,7 @@ export default class TodoItems extends React.Component {
 
     this.createTasks = this.createTasks.bind(this);
     this.addComment = this.addComment.bind(this);
+    this.edit = this.edit.bind(this);
 
   }
 
@@ -28,29 +29,25 @@ export default class TodoItems extends React.Component {
     this.props.complete(key);
   }
 
-  isComment(key){
-    this.props.isComment(key);
-  }
-
-  isEdit(key){
-    this.props.isEdit(key);
+  setting(key){
+    this.props.setting(key);
   }
 
   edit(key, valueT, valueD){
-    //this.props.addComment(key, value);
 
-    if (this._inputTitle.value !== "" && this._inputDescription.value !== "") {
+    if (this._inputTitle.value !== "" ) {
       const valueT = this._inputTitle.value;
       const valueD = this._inputDescription.value;
+      console.log(key);
+      console.log(valueD);
       this.props.edit(key, valueT, valueD);
        this._inputTitle.value = "";
-       this._inputDescription.value = ""
+       this._inputDescription.value = "";
        }
        event.preventDefault();
   }
 
   addComment(key, value){
-    //this.props.addComment(key, value);
 
     if (this._inputComment.value !== "") {
       const value = this._inputComment.value;
@@ -84,51 +81,41 @@ export default class TodoItems extends React.Component {
                  </span>
                  <i className={`fas fa-check ${item.completed ? "fa-check-active" : ""}`}
                    onClick={() => this.complete(item.key)}></i>
-                 <span className="todo-item__is-commenting">
-                     {item.commenting ? (
-                       <i className="fas fa-arrow-up" onClick={() => this.isComment(item.key)}/>)
-                         : (
-                           <i className="fas fa-arrow-down" onClick={() => this.isComment(item.key)}/>
-                         )}
-                 </span>
-                 <i className={`fas fa-edit ${item.editing ? "fa-edit-active" : ""}`}
-                   onClick={() => this.isEdit(item.key)}></i>
+                 <i className={`fas fa-edit ${item.setting ? "fa-edit-active" : ""}`}
+                   onClick={() => this.setting(item.key)}></i>
               </div>
             </div>
 
-             {item.commenting &&
-               <div className="comments-form">
-                 <div className="comments-form__top-comments-section">
-               <h1>Comments</h1>
-                <form className="comments-form__input-form" onSubmit={() => this.addComment(item.key)}>
-                  <input ref={(a) => this._inputComment = a}
-                       placeholder="Enter comment">
-                    </input>
-                  <button className="fa fa-plus" type="submit"></button>
-                </form>
-                </div>
-                <div>
+             {item.setting &&
+               <div className="popup-background">
+                 <div className="settings-form">
+                   <div className="edit-form">
+                     <h1>Edit</h1>
+                     <form className="edit-form__input-form" onSubmit={() => this.edit(item.key)}>
+                         <input ref={(a) => this._inputTitle = a}
+                           placeholder="new title">
+                            </input>
+                        <input ref={(b) => this._inputDescription = b}
+                          placeholder="new desc">
+                           </input>
+                  </form>
+                  </div>
+
+                   <div className="comments-form">
+                  <form className="comments-form__input-form" onSubmit={() => this.addComment(item.key)}>
+                    <h1 className="cmnts">Comments</h1>
+                    <input ref={(a) => this._inputComment = a}
+                         placeholder="Enter comment">
+                      </input>
+                  </form>
                   <ul className="comments-form__comments-list">
                    {item.comments.map(comment => <li>{comment}</li>)}
                   </ul>
-                </div>
-             </div>}
+                  </div>
 
-             {item.editing &&
-               <div className="edit-form">
-                 <div className="comments-form__top-comments-section">
-               <h1>Edit</h1>
-                <form className="comments-form__input-form" onSubmit={() => this.edit(item.key)}>
-                  <input ref={(a) => this._inputTitle = a}
-                       placeholder="Enter new Title">
-                    </input>
-                  <input ref={(b) => this._inputDescription = b}
-                       placeholder="Enter new Description">
-                    </input>
-                  <button className="fa fa-plus" type="submit"></button>
-                </form>
+                <button  onClick={() => this.setting(item.key)}> Close </button>
                 </div>
-             </div>}
+              </div>}
 
            </div>
   }

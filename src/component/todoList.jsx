@@ -16,9 +16,8 @@ export default class TodoList extends React.Component {
     this.likeItem = this.likeItem.bind(this);
     this.completeItem = this.completeItem.bind(this);
     this.commentItem = this.commentItem.bind(this);
-    this.isCommentItem = this.isCommentItem.bind(this);
+    this.settingItem = this.settingItem.bind(this);
     this.editItem = this.editItem.bind(this);
-    this.isEditItem = this.isEditItem.bind(this);
   }
 
   addItem(e) {
@@ -29,8 +28,7 @@ export default class TodoList extends React.Component {
       description: this._inputDescription.value,
       isLiked: false,
       completed: false,
-      commenting: false,
-      editing: false,
+      setting: false,
       key: Date.now(),
       comments:[]
     };
@@ -66,26 +64,13 @@ export default class TodoList extends React.Component {
 
   }
 
-  isCommentItem(key){
-    console.log(this.state.items);
-    const selectedKey = this.state.items.findIndex(item => {
-      return (item.key === key);
-    });
-    this.state.items[selectedKey].commenting = !this.state.items[selectedKey].commenting;
-    this.setState((prevState)=>{
-      prevState.items.splice(selectedKey,1,this.state.items[selectedKey])
-      return{
-        prevState
-      }
-    })
-  }
 
-  isEditItem(key){
+  settingItem(key){
     console.log(this.state.items);
     const selectedKey = this.state.items.findIndex(item => {
       return (item.key === key);
     });
-    this.state.items[selectedKey].editing = !this.state.items[selectedKey].editing;
+    this.state.items[selectedKey].setting = !this.state.items[selectedKey].setting;
     this.setState((prevState)=>{
       prevState.items.splice(selectedKey,1,this.state.items[selectedKey])
       return{
@@ -152,6 +137,16 @@ export default class TodoList extends React.Component {
 
   }
 
+/*
+
+1. S.O.L.I.D. JavaScript
+2. JavaScript OOP
+3. JavaScript Patterns and Best Practises
+4. GRASP Patterns
+5. React BestPractises
+6. Описать шаги приложения текстом, перед тем как писать код
+7. Логика
+*/
 
   render() {
     return (
@@ -171,9 +166,8 @@ export default class TodoList extends React.Component {
                      like={this.likeItem}
                      complete={this.completeItem}
                      addComment={this.commentItem}
-                     isComment={this.isCommentItem}
                      edit={this.editItem}
-                     isEdit={this.isEditItem}
+                     setting={this.settingItem}
                      />
       </div>
     );
