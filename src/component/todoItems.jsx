@@ -8,12 +8,12 @@ export default class TodoItems extends React.Component {
     super(props);
 
   this.state = {
-      item:{}
+      item:{
+
+      }
   }
 
     this.createTasks = this.createTasks.bind(this);
-
-
   }
 
   delete(key){
@@ -86,8 +86,10 @@ export default class TodoItems extends React.Component {
             </div>
 
              {item.setting &&
+
                <div className="popup-background">
                  <div className="settings-form">
+
                    <div className="edit-form">
                      <h1>Edit</h1>
                      <form className="edit-form__input-form" onSubmit={() => this.edit(item.key)}>
@@ -124,11 +126,11 @@ export default class TodoItems extends React.Component {
 
                 <button  onClick={() => this.setting(item.key)}> Close </button>
                 </div>
-              </div>}
+              </div>
+            }
 
            </div>
   }
-
 
 
 
@@ -138,16 +140,23 @@ export default class TodoItems extends React.Component {
 
     localStorage.setItem("items", JSON.stringify(todoEntries));
     document.getElementsByClassName("todo-item-list").innerHTML = localStorage.getItem("items");
-
-    return (
-      <div className="todo-list-form" >
-        <h1>TODO List</h1>
-        <ul className="todo-item-list" >
-          <FlipMove duration={250} easing="ease-out">
-            {listItems}
-          </FlipMove>
-        </ul>
-      </div>
-    );
+    
+    if (!listItems || !listItems.length) {
+      return (
+        <span className="no-todo-placeholder">No TODOs</span>
+      );
+    }
+    else {
+      return (
+        <div className="todo-list-form" >
+          <h1>TODO List</h1>
+          <ul className="todo-item-list" >
+            <FlipMove duration={250} easing="ease-out">
+              {listItems}
+            </FlipMove>
+          </ul>
+        </div>
+      );
+    }
   }
 };
