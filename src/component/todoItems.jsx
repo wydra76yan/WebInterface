@@ -7,12 +7,6 @@ export default class TodoItems extends React.Component {
   constructor(props){
     super(props);
 
-  this.state = {
-      item:{
-
-      }
-  }
-
     this.createTasks = this.createTasks.bind(this);
   }
 
@@ -86,29 +80,21 @@ export default class TodoItems extends React.Component {
             </div>
 
              {item.setting &&
-
                <div className="popup-background">
                  <div className="settings-form">
-
                    <div className="edit-form">
                      <h1>Edit</h1>
                      <form className="edit-form__input-form" onSubmit={() => this.edit(item.key)}>
                        <h2>Title</h2>
-                         <input
-                           ref={(a) => this._inputTitle = a}
-                           name="title"
-                           placeholder = {item.text}
-                           defaultValue = {item.text}
-                         >
-                            </input>
-                            <h2>Description</h2>
-                        <input ref={(b) => this._inputDescription = b}
-                          name="description"
-                          placeholder = {item.description}
-                          defaultValue = {item.description}>
-                           </input>
+                       <input ref={(a) => this._inputTitle = a}
+                         defaultValue = {item.text}>
+                          </input>
+                      <h2>Description</h2>
+                      <input ref={(b) => this._inputDescription = b}
+                         defaultValue = {item.description}>
+                          </input>
                            <button type="submit"></button>
-                  </form>
+                     </form>
                   </div>
 
                    <div className="comments-form">
@@ -140,7 +126,7 @@ export default class TodoItems extends React.Component {
 
     localStorage.setItem("items", JSON.stringify(todoEntries));
     document.getElementsByClassName("todo-item-list").innerHTML = localStorage.getItem("items");
-    
+
     if (!listItems || !listItems.length) {
       return (
         <span className="no-todo-placeholder">No TODOs</span>

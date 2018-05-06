@@ -11,8 +11,6 @@ export default class TodoList extends React.Component {
       items: JSON.parse(localStorage.getItem("items"))
     };
 
-
-
     this.addItem = this.addItem.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.likeItem = this.likeItem.bind(this);
@@ -50,86 +48,58 @@ export default class TodoList extends React.Component {
   e.preventDefault();
 }
 
-  commentItem(key, value) {
-    const selectedKey = this.state.items.findIndex(item => {
-      return (item.key === key);
-    });
-    console.log(this.state.items[selectedKey]);
+  findItem(index){
+    return this.state.items.findIndex(item => item.key === index);
+}
 
-    this.state.items[selectedKey].comments = [...this.state.items[selectedKey].comments, value]
-
+  itemSet(index){
     this.setState((prevState)=>{
-        prevState.items.splice(selectedKey,1,this.state.items[selectedKey])
+        prevState.items.splice(index,1,this.state.items[index])
         return{
           prevState
         }
     })
+  }
 
+  commentItem(key, value) {
+    const itemIndex = this.findItem(key)
+    const selectedKey = this.state.items[itemIndex]
+    selectedKey.comments = [...selectedKey.comments, value]
+    return this.itemSet(itemIndex)
   }
 
 
   settingItem(key){
-    console.log(this.state.items);
-    const selectedKey = this.state.items.findIndex(item => {
-      return (item.key === key);
-    });
-    this.state.items[selectedKey].setting = !this.state.items[selectedKey].setting;
-    this.setState((prevState)=>{
-      prevState.items.splice(selectedKey,1,this.state.items[selectedKey])
-      return{
-        prevState
-      }
-    })
+    const itemIndex = this.findItem(key)
+    const selectedKey = this.state.items[itemIndex]
+    selectedKey.setting = !selectedKey.setting;
+    return this.itemSet(itemIndex)
   }
 
   editItem(key, valueT, valueD) {
-    const selectedKey = this.state.items.findIndex(item => {
-      return (item.key === key);
-    });
-    console.log(this.state.items[selectedKey]);
-
-    this.state.items[selectedKey].text = valueT;
-    this.state.items[selectedKey].description = valueD;
-
-    this.setState((prevState)=>{
-        prevState.items.splice(selectedKey,1,this.state.items[selectedKey])
-        return{
-          prevState
-        }
-    })
+    const itemIndex = this.findItem(key)
+    const selectedKey = this.state.items[itemIndex]
+    selectedKey.text = valueT;
+    selectedKey.description = valueD;
+    return this.itemSet(itemIndex)
 
   }
 
   completeItem(key){
-    console.log(this.state.items);
-    const selectedKey = this.state.items.findIndex(item => {
-      return (item.key === key);
-    });
-    this.state.items[selectedKey].completed = !this.state.items[selectedKey].completed;
-    this.setState((prevState)=>{
-      prevState.items.splice(selectedKey,1,this.state.items[selectedKey])
-      return{
-        prevState
-      }
-    })
+    const itemIndex = this.findItem(key)
+    const selectedKey = this.state.items[itemIndex]
+    selectedKey.completed = !selectedKey.completed;
+    return this.itemSet(itemIndex)
   }
 
   likeItem(key){
-    console.log(this.state.items);
-    const selectedKey = this.state.items.findIndex(item => {
-      return (item.key === key);
-    });
-    this.state.items[selectedKey].isLiked = !this.state.items[selectedKey].isLiked;
-    this.setState((prevState)=>{
-      prevState.items.splice(selectedKey,1,this.state.items[selectedKey])
-      return{
-        prevState
-      }
-    })
+    const itemIndex = this.findItem(key)
+    const selectedKey = this.state.items[itemIndex]
+    selectedKey.isLiked = !selectedKey.isLiked;
+    return this.itemSet(itemIndex)
   }
 
   deleteItem(key) {
-    console.log(this.state.items);
     const filteredItems = this.state.items.filter(item => {
       return (item.key !== key);
     });
