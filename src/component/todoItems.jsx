@@ -96,7 +96,6 @@ export default class TodoItems extends React.Component {
                            <button type="submit"></button>
                      </form>
                   </div>
-
                    <div className="comments-form">
                   <form className="comments-form__input-form" onSubmit={() => this.addComment(item.key)}>
                     <h1 className="cmnts">Comments</h1>
@@ -109,7 +108,6 @@ export default class TodoItems extends React.Component {
                    {item.comments.map(comment => <li>{comment}</li>)}
                   </ul>
                   </div>
-
                 <button  onClick={() => this.setting(item.key)}> Close </button>
                 </div>
               </div>

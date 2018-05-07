@@ -1,6 +1,7 @@
 import React from 'react';
 import TodoItems from './todoItems.jsx';
 import '../component-css/content.css';
+import {likeItem, completeItem, findItem} from "./TodoServices.js";
 
 export default class TodoList extends React.Component {
 
@@ -12,12 +13,12 @@ export default class TodoList extends React.Component {
     };
 
     this.addItem = this.addItem.bind(this);
-    this.deleteItem = this.deleteItem.bind(this);
-    this.likeItem = this.likeItem.bind(this);
-    this.completeItem = this.completeItem.bind(this);
-    this.commentItem = this.commentItem.bind(this);
+    this.handleDeleteItem = this.handleDeleteItem.bind(this);
+    this.handleLikeItem = this.handleLikeItem.bind(this);
+    this.handleCompleteItem = this.handleCompleteItem.bind(this);
+    this.handleCommentItem = this.handleCommentItem.bind(this);
     this.settingItem = this.settingItem.bind(this);
-    this.editItem = this.editItem.bind(this);
+    this.handleEditItem = this.handleEditItem.bind(this);
   }
 
 
@@ -48,9 +49,9 @@ export default class TodoList extends React.Component {
   e.preventDefault();
 }
 
-  findItem(index){
-    return this.state.items.findIndex(item => item.key === index);
-}
+//   findItem(index){
+//     return this.state.items.findIndex(item => item.key === index);
+// }
 
   itemSet(index){
     this.setState((prevState)=>{
@@ -61,7 +62,7 @@ export default class TodoList extends React.Component {
     })
   }
 
-  commentItem(key, value) {
+  handleCommentItem(key, value) {
     const itemIndex = this.findItem(key)
     const selectedKey = this.state.items[itemIndex]
     selectedKey.comments = [...selectedKey.comments, value]
@@ -76,7 +77,7 @@ export default class TodoList extends React.Component {
     return this.itemSet(itemIndex)
   }
 
-  editItem(key, valueT, valueD) {
+  handleEditItem(key, valueT, valueD) {
     const itemIndex = this.findItem(key)
     const selectedKey = this.state.items[itemIndex]
     selectedKey.text = valueT;
@@ -85,21 +86,19 @@ export default class TodoList extends React.Component {
 
   }
 
-  completeItem(key){
-    const itemIndex = this.findItem(key)
-    const selectedKey = this.state.items[itemIndex]
-    selectedKey.completed = !selectedKey.completed;
+  handleCompleteItem(key){
+    completeItem(key, this.state.items)
+    const itemIndex = findItem(key, this.state.items)
     return this.itemSet(itemIndex)
   }
 
-  likeItem(key){
-    const itemIndex = this.findItem(key)
-    const selectedKey = this.state.items[itemIndex]
-    selectedKey.isLiked = !selectedKey.isLiked;
+  handleLikeItem(key){
+    likeItem(key, this.state.items)
+    const itemIndex = findItem(key, this.state.items)
     return this.itemSet(itemIndex)
   }
 
-  deleteItem(key) {
+  handleDeleteItem(key) {
     const filteredItems = this.state.items.filter(item => {
       return (item.key !== key);
     });
@@ -110,16 +109,6 @@ export default class TodoList extends React.Component {
 
   }
 
-/*
-
-1. S.O.L.I.D. JavaScript
-2. JavaScript OOP
-3. JavaScript Patterns and Best Practises
-4. GRASP Patterns
-5. React BestPractises
-6. Описать шаги приложения текстом, перед тем как писать код
-7. Логика
-*/
 
   render() {
     return (
@@ -135,11 +124,11 @@ export default class TodoList extends React.Component {
           <button type="submit">Add</button>
         </form>
           <TodoItems entries={this.state.items}
-                     delete={this.deleteItem}
-                     like={this.likeItem}
-                     complete={this.completeItem}
-                     addComment={this.commentItem}
-                     edit={this.editItem}
+                     delete={this.handleDeleteItem}
+                     like={this.handleLikeItem}
+                     complete={this.handleCompleteItem}
+                     addComment={this.handleCommentItem}
+                     edit={this.handleEditItem}
                      setting={this.settingItem}
                      />
       </div>

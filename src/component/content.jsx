@@ -1,7 +1,7 @@
 import React from 'react'
 import '../component-css/content.css';
 import TodoList from './todoList.jsx';
-import TodoItems from './todoItems.jsx';
+import ListContent from './listCont.jsx';
 
 export default class Content extends React.Component{
 
