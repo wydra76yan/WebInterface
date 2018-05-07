@@ -1,7 +1,7 @@
 import React from 'react';
 import TodoItems from './todoItems.jsx';
 import '../component-css/content.css';
-import {likeItem, completeItem, findItem} from "./TodoServices.js";
+import {likeItem, completeItem, commentItem, settingItem, editItem, findItem, deleteItem, addItem} from "./TodoServices.js";
 
 export default class TodoList extends React.Component {
 
@@ -12,33 +12,25 @@ export default class TodoList extends React.Component {
       items: JSON.parse(localStorage.getItem("items"))
     };
 
-    this.addItem = this.addItem.bind(this);
+    this.handleAddItem = this.handleAddItem.bind(this);
     this.handleDeleteItem = this.handleDeleteItem.bind(this);
     this.handleLikeItem = this.handleLikeItem.bind(this);
     this.handleCompleteItem = this.handleCompleteItem.bind(this);
     this.handleCommentItem = this.handleCommentItem.bind(this);
-    this.settingItem = this.settingItem.bind(this);
+    this.handleSettingItem = this.handleSettingItem.bind(this);
     this.handleEditItem = this.handleEditItem.bind(this);
   }
 
 
-  addItem(e) {
-//  const { items } = this.state;
-  if (this._inputText.value !== "" && this._inputDescription.value !== "") {
-    const newItem = {
-      text: this._inputText.value,
-      description: this._inputDescription.value,
-      isLiked: false,
-      completed: false,
-      setting: false,
-      key: Date.now(),
-      comments:[]
-    };
+  handleAddItem(e) {
 
-        this.setState((prevState) => {
-      return {
-        items: prevState.items.concat(newItem)
-      };
+  if (this._inputText.value !== "" && this._inputDescription.value !== "") {
+
+    const title = this._inputText.value;
+    const description = this._inputDescription.value;
+
+    this.setState( {
+        items: addItem(title, description, this.state.items)
     });
 
 
@@ -48,10 +40,6 @@ export default class TodoList extends React.Component {
   }
   e.preventDefault();
 }
-
-//   findItem(index){
-//     return this.state.items.findIndex(item => item.key === index);
-// }
 
   itemSet(index){
     this.setState((prevState)=>{
@@ -63,27 +51,22 @@ export default class TodoList extends React.Component {
   }
 
   handleCommentItem(key, value) {
-    const itemIndex = this.findItem(key)
-    const selectedKey = this.state.items[itemIndex]
-    selectedKey.comments = [...selectedKey.comments, value]
+    commentItem(key, value, this.state.items)
+    const itemIndex = findItem(key, this.state.items)
     return this.itemSet(itemIndex)
   }
 
 
-  settingItem(key){
-    const itemIndex = this.findItem(key)
-    const selectedKey = this.state.items[itemIndex]
-    selectedKey.setting = !selectedKey.setting;
+  handleSettingItem(key){
+    settingItem(key, this.state.items)
+    const itemIndex = findItem(key, this.state.items)
     return this.itemSet(itemIndex)
   }
 
   handleEditItem(key, valueT, valueD) {
-    const itemIndex = this.findItem(key)
-    const selectedKey = this.state.items[itemIndex]
-    selectedKey.text = valueT;
-    selectedKey.description = valueD;
+    editItem(key, valueT, valueD, this.state.items)
+    const itemIndex = findItem(key, this.state.items)
     return this.itemSet(itemIndex)
-
   }
 
   handleCompleteItem(key){
@@ -99,21 +82,16 @@ export default class TodoList extends React.Component {
   }
 
   handleDeleteItem(key) {
-    const filteredItems = this.state.items.filter(item => {
-      return (item.key !== key);
-    });
-
-    this.setState({
-      items: filteredItems
-    })
-
+      this.setState({
+        items: deleteItem(key, this.state.items)
+      })
   }
 
 
   render() {
     return (
       <div className='todo-form'>
-        <form className="todo-form__input-form" onSubmit={this.addItem}>
+        <form className="todo-form__input-form" onSubmit={this.handleAddItem}>
           <h1>New TODO Item</h1>
           <input ref={(a) => this._inputText = a}
                placeholder="Enter task">
@@ -129,7 +107,7 @@ export default class TodoList extends React.Component {
                      complete={this.handleCompleteItem}
                      addComment={this.handleCommentItem}
                      edit={this.handleEditItem}
-                     setting={this.settingItem}
+                     setting={this.handleSettingItem}
                      />
       </div>
     );
