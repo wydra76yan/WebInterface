@@ -87,11 +87,13 @@ export default class TodoItems extends React.Component {
                      <form className="edit-form__input-form" onSubmit={() => this.edit(item.key)}>
                        <h2>Title</h2>
                        <input ref={(a) => this._inputTitle = a}
-                         defaultValue = {item.text}>
+                         defaultValue = {item.text}
+                         placeholder = {item.text}>
                           </input>
                       <h2>Description</h2>
                       <input ref={(b) => this._inputDescription = b}
-                         defaultValue = {item.description}>
+                         defaultValue = {item.description}
+                         placeholder = {item.description}>
                           </input>
                            <button type="submit"></button>
                      </form>
@@ -121,9 +123,12 @@ export default class TodoItems extends React.Component {
   render() {
     const todoEntries = this.props.entries;
     const listItems = todoEntries.map(this.createTasks);
-
+    console.log('listItems')
+    console.log(listItems)
+    console.log('todoEntries')
+    console.log(todoEntries)
     localStorage.setItem("items", JSON.stringify(todoEntries));
-    document.getElementsByClassName("todo-item-list").innerHTML = localStorage.getItem("items");
+    //document.getElementsByClassName("todo-item-list").innerHTML = localStorage.getItem("items");
 
     if (!listItems || !listItems.length) {
       return (

@@ -1,5 +1,3 @@
-
-
 function findItem(index, list){
     return list.findIndex(item => item.key === index);
 }
