@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const ObjectID = require('mongodb').ObjectID;
 
 const url = 'mongodb://localhost:27017/';
 const dbName = 'TodoApp';
@@ -12,71 +13,59 @@ const todos = [];
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-app.post('/todos', function(db, callback) {
-  console.log("post");
-  console.log(db);
-  const todo = {
-    title: db.body.title
-  }
-  console.log(todo);
-  const collection = db.collection('todos');
-  collection.insertOne(todo, function(err, res){
-    assert.equal(err, null);
-    console.log("Inserted 1 doc into the collection");
-    callback(res);
-  })
+app.listen(3000, function(){
+  console.log('FUCK START');
 })
 
-app.put('/todos/:id', function (req, res){
-  const todo = todos.find(function (todo) {
-    return todo.id === Number(req.params.id);
+app.post('/todos', function(req, res) {
+  const todo = {
+    title: req.body.title
+  }
+  console.log(todo);
+  MongoClient.connect(url, function(err, client){
+    if (err){
+      return console.log(err);
+    }
+    const db = client.db(dbName);
+    const collection = db.collection('todos');
+    collection.insertOne(todo, function(err, res){
+    assert.equal(err, null);
+    console.log("Inserted 1 doc into the collection");
+    })
   })
-  todo.title = req.body.title;
   res.send(todo);
 })
 
-app.delete('/todos/:id', function (req, res){
-  const todo = todos.filter(function (todo) {
-    return todo.id != Number(req.params.id);
-  })
+app.put('/todos/:id', function (req, res){
+  MongoClient.connect(url, function(err, client){
+    if (err){
+      return console.log(err);
+    }
+    const db = client.db(dbName);
+    const collection = db.collection('todos');
+    collection.updateOne(
+      { _id: ObjectID(req.params.id)},
+      { $set: { title: req.body.title}},
+        assert.equal(err, null)
+      )
+      console.log("Update 1 doc into the collection")
+    })
   res.sendStatus(200);
 })
 
-const insertDocuments = function(db, callback) {
-  console.log("typeof(collection)");
-  console.log(db);
-  const collection = db.collection('todos');
-
-  // Insert some documents
-  collection.insertOne(
-    //{title : "love"},
-   function(err, result) {
-    assert.equal(err, null);
-    console.log("Inserted 3 documents into the collection");
-    callback(result);
-  });
-}
-
-// MongoClient.connect(url, function(err, client) {
-//   assert.equal(null, err);
-//   console.log("Connected successfully to server");
-//
-//   const db = client.db(dbName);
-//   console.log(typeof(db));
-//
-//   insertDocuments(db, function() {
-//     client.close();
-//   });
-// });
-
-MongoClient.connect(url, function(err, client){
-  if (err){
-    return console.log(err);
-  }
-  const db = client.db(dbName);
-  console.log('client');
-  console.log(db);
-  app.listen(3000, function(){
-    console.log('FUCK START');
+app.delete('/todos/:id', function (req, res){
+  MongoClient.connect(url, function(err, client){
+    if (err){
+      return console.log(err);
+    }
+    const db = client.db(dbName);
+    const collection = db.collection('todos');
+    collection.deleteOne(
+      { _id: ObjectID(req.params.id)},
+      function (err, result) {
+        assert.equal(err, null)
+      }
+    )
   })
+  res.sendStatus(200);
 })
