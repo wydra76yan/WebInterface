@@ -18,75 +18,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
 
-app.post(todoReq, function(req, res) {
-  const todo = {
-    title: req.body.title,
-    description: req.body.description,
-    isLiked: false,
-    completed: false,
-    comments:[]
-  }
-  console.log(todo);
-    dbase.get().insertOne(todo, function(err, res){
-    assert.equal(err, null);
-    console.log("Inserted 1 doc into the collection");
-    })
-  res.send(todo);
-})
+app.post(todoReq, todosContr.create);
 
 app.get(todoReq, todosContr.all);
 
-app.get(todoReqId, function(req, res){
-  dbase.findOne({ _id: ObjectID(req.params.id) }, function(err, todo){
-    if (err) {
-      console.err(err);
-      return res.sendStatus(500);
-    }
-    res.send(todo);
-  })
-})
+app.get(todoReqId, todosContr.read);
 
+app.put(todoReqId, todosContr.update);
 
+app.put(todoReqId + "/isLiked", todosContr.like);
 
-app.put(todoReqId, function (req, res){
-  dbase.updateOne(
-      { _id: ObjectID(req.params.id)},
-      { $set: { title: req.body.title}},
-      { $set: { description: req.body.description}},
-      function (err, result) {
-        assert.equal(err, null)
-      }
-    )
-    console.log("Update 1 doc into the collection")
-  res.sendStatus(200);
-})
+app.put(todoReqId + "/complete", todosContr.complete);
 
-app.put(todoReqId + "/isLiked", function (req, res){
-  dbase.updateOne(
-      { _id: ObjectID(req.params.id)},
-      { $set: {isLiked: req.body.isLiked}},
-      function (err, result) {
-        assert.equal(err, null)
-      }
-    )
-    console.log("Liked 1 doc into the collection")
-  res.sendStatus(200);
-})
-
-app.delete(todoReqId, function (req, res){
-  dbase.deleteOne(
-      { _id: ObjectID(req.params.id)},
-      function (err, result) {
-        assert.equal(err, null)
-      }
-    )
-  res.sendStatus(200);
-})
+app.delete(todoReqId, todosContr.delete)
 
 dbase.connect(url, function(err){
-  if (err){
-    return console.log(err);
-  }
+  assert.equal(err, null)
   app.listen(3000, function(){
     console.log('Server started');
   })
