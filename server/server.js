@@ -10,6 +10,8 @@ const app = express();
 
 const todos = [];
 
+let dbase;
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
@@ -22,50 +24,39 @@ app.post('/todos', function(req, res) {
     title: req.body.title
   }
   console.log(todo);
-  MongoClient.connect(url, function(err, client){
-    if (err){
-      return console.log(err);
-    }
-    const db = client.db(dbName);
-    const collection = db.collection('todos');
-    collection.insertOne(todo, function(err, res){
+    dbase.insertOne(todo, function(err, res){
     assert.equal(err, null);
     console.log("Inserted 1 doc into the collection");
     })
-  })
   res.send(todo);
 })
 
+
 app.put('/todos/:id', function (req, res){
-  MongoClient.connect(url, function(err, client){
-    if (err){
-      return console.log(err);
-    }
-    const db = client.db(dbName);
-    const collection = db.collection('todos');
-    collection.updateOne(
+  dbase.updateOne(
       { _id: ObjectID(req.params.id)},
       { $set: { title: req.body.title}},
+      function (err, result) {
         assert.equal(err, null)
+      }
       )
       console.log("Update 1 doc into the collection")
-    })
   res.sendStatus(200);
 })
 
 app.delete('/todos/:id', function (req, res){
-  MongoClient.connect(url, function(err, client){
-    if (err){
-      return console.log(err);
-    }
-    const db = client.db(dbName);
-    const collection = db.collection('todos');
-    collection.deleteOne(
+  dbase.deleteOne(
       { _id: ObjectID(req.params.id)},
       function (err, result) {
         assert.equal(err, null)
       }
     )
-  })
   res.sendStatus(200);
+})
+
+MongoClient.connect(url, function(err, client){
+  if (err){
+    return console.log(err);
+  }
+  dbase = client.db(dbName).collection('todos');
 })
