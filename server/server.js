@@ -9,8 +9,7 @@ const dbName = 'TodoApp';
 const app = express();
 const todoReq = '/todos';
 const todoReqId = '/todos/:id';
-const todos = [];
-
+const todosContr = require('./control/todos');
 
 
 var dbase = require('./db');
@@ -35,15 +34,7 @@ app.post(todoReq, function(req, res) {
   res.send(todo);
 })
 
-app.get(todoReq, function(req, res){
-  dbase.find().toArray(function(err, todos){
-    if (err) {
-      console.err(err);
-      return res.sendStatus(500);
-    }
-    res.send(todos);
-  })
-})
+app.get(todoReq, todosContr.all);
 
 app.get(todoReqId, function(req, res){
   dbase.findOne({ _id: ObjectID(req.params.id) }, function(err, todo){
