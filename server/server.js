@@ -31,6 +31,25 @@ app.post('/todos', function(req, res) {
   res.send(todo);
 })
 
+app.get('/todos', function(req, res){
+  dbase.find().toArray(function(err, todos){
+    if (err) {
+      console.err(err);
+      return res.sendStatus(500);
+    }
+    res.send(todos);
+  })
+})
+
+app.get('/todos/:id', function(req, res){
+  dbase.findOne({ _id: ObjectID(req.params.id) }, function(err, todo){
+    if (err) {
+      console.err(err);
+      return res.sendStatus(500);
+    }
+    res.send(todo);
+  })
+})
 
 app.put('/todos/:id', function (req, res){
   dbase.updateOne(
@@ -39,8 +58,8 @@ app.put('/todos/:id', function (req, res){
       function (err, result) {
         assert.equal(err, null)
       }
-      )
-      console.log("Update 1 doc into the collection")
+    )
+    console.log("Update 1 doc into the collection")
   res.sendStatus(200);
 })
 
