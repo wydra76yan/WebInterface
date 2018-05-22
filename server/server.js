@@ -7,31 +7,35 @@ const ObjectID = require('mongodb').ObjectID;
 const url = 'mongodb://localhost:27017/';
 const dbName = 'TodoApp';
 const app = express();
-
+const todoReq = '/todos';
+const todoReqId = '/todos/:id';
 const todos = [];
 
-let dbase;
+
+
+var dbase = require('./db');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-app.listen(3000, function(){
-  console.log('FUCK START');
-})
 
-app.post('/todos', function(req, res) {
+app.post(todoReq, function(req, res) {
   const todo = {
-    title: req.body.title
+    title: req.body.title,
+    description: req.body.description,
+    isLiked: false,
+    completed: false,
+    comments:[]
   }
   console.log(todo);
-    dbase.insertOne(todo, function(err, res){
+    dbase.get().insertOne(todo, function(err, res){
     assert.equal(err, null);
     console.log("Inserted 1 doc into the collection");
     })
   res.send(todo);
 })
 
-app.get('/todos', function(req, res){
+app.get(todoReq, function(req, res){
   dbase.find().toArray(function(err, todos){
     if (err) {
       console.err(err);
@@ -41,7 +45,7 @@ app.get('/todos', function(req, res){
   })
 })
 
-app.get('/todos/:id', function(req, res){
+app.get(todoReqId, function(req, res){
   dbase.findOne({ _id: ObjectID(req.params.id) }, function(err, todo){
     if (err) {
       console.err(err);
@@ -51,10 +55,13 @@ app.get('/todos/:id', function(req, res){
   })
 })
 
-app.put('/todos/:id', function (req, res){
+
+
+app.put(todoReqId, function (req, res){
   dbase.updateOne(
       { _id: ObjectID(req.params.id)},
       { $set: { title: req.body.title}},
+      { $set: { description: req.body.description}},
       function (err, result) {
         assert.equal(err, null)
       }
@@ -63,7 +70,19 @@ app.put('/todos/:id', function (req, res){
   res.sendStatus(200);
 })
 
-app.delete('/todos/:id', function (req, res){
+app.put(todoReqId + "/isLiked", function (req, res){
+  dbase.updateOne(
+      { _id: ObjectID(req.params.id)},
+      { $set: {isLiked: req.body.isLiked}},
+      function (err, result) {
+        assert.equal(err, null)
+      }
+    )
+    console.log("Liked 1 doc into the collection")
+  res.sendStatus(200);
+})
+
+app.delete(todoReqId, function (req, res){
   dbase.deleteOne(
       { _id: ObjectID(req.params.id)},
       function (err, result) {
@@ -73,9 +92,11 @@ app.delete('/todos/:id', function (req, res){
   res.sendStatus(200);
 })
 
-MongoClient.connect(url, function(err, client){
+dbase.connect(url, function(err){
   if (err){
     return console.log(err);
   }
-  dbase = client.db(dbName).collection('todos');
+  app.listen(3000, function(){
+    console.log('Server started');
+  })
 })
