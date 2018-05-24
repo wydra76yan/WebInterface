@@ -1,5 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
 const dbName = 'TodoApp';
+
 const state = {
   dbase: null
 };

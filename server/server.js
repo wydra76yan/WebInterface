@@ -1,35 +1,34 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var MongoClient = require('mongodb').MongoClient;
+const express = require('express');
+const app = express();
+
+const bodyParser = require('body-parser');
 const assert = require('assert');
-const ObjectID = require('mongodb').ObjectID;
 
 const url = 'mongodb://localhost:27017/';
-const dbName = 'TodoApp';
-const app = express();
 const todoReq = '/todos';
 const todoReqId = '/todos/:id';
+
 const todosContr = require('./control/todos');
-
-
-var dbase = require('./db');
+const dbase = require('./db');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 
-
+//Create new todo
 app.post(todoReq, todosContr.create);
-
+//Read <id>todo
 app.get(todoReq, todosContr.all);
-
+//Get all todos
 app.get(todoReqId, todosContr.read);
-
+//Update <id>todo
 app.put(todoReqId, todosContr.update);
-
+//Like <id>todo
 app.put(todoReqId + "/isLiked", todosContr.like);
-
+//Complete <id>todo
 app.put(todoReqId + "/complete", todosContr.complete);
-
+//Comment <id>todo
+app.put(todoReqId + "/comment", todosContr.comment);
+//Delete <id>todo
 app.delete(todoReqId, todosContr.delete)
 
 dbase.connect(url, function(err){
