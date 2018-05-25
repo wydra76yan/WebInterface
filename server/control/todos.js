@@ -64,6 +64,7 @@ exports.like = function(req, res){
   if (req.params.id.length != charNum)
     res.send("Wrong length");
   else{
+    if (req.body.isLiked != null ) {
     Todos.update(req.params.id,
       {
         $set:{
@@ -74,43 +75,58 @@ exports.like = function(req, res){
         assert.equal(err, null)
       })
       res.sendStatus(200);
+    } else
+    res.send("Wrong input");
   }
 }
 
 exports.complete = function(req, res){
-  Todos.update(req.params.id,
-    {
-      $set:{
-        completed: req.body.completed,
-      }
-    },
-    function (err, res) {
-      assert.equal(err, null)
-    })
-    res.sendStatus(200);
+  if (req.params.id.length != charNum)
+    res.send("Wrong length");
+  else{
+    if (req.body.complete != null ) {
+    Todos.update(req.params.id,
+      {
+        $set:{
+          completed: req.body.completed,
+        }
+      },
+      function (err, res) {
+        assert.equal(err, null)
+      })
+      res.sendStatus(200);
+    } else
+    res.send("Wrong input");
+  }
 }
 
 exports.comment = function(req, res){
-  // Todos.forComment(req.params.id, function (err, todo) {
-  // assert.equal(err, null)
-  // console.log(todo);
-  //   res.send(todo);
-  // })
-  Todos.update(req.params.id,
-    {
-      $push:{
-        comments: req.body.comments,
-      }
-    },
-    function (err, res) {
-      assert.equal(err, null)
-    })
-    res.sendStatus(200);
+  if (req.params.id.length != charNum)
+    res.send("Wrong length");
+  else{
+    if (req.body.complete != null ) {
+    Todos.update(req.params.id,
+      {
+        $push:{
+          comments: req.body.comments,
+        }
+      },
+      function (err, res) {
+        assert.equal(err, null)
+      })
+      res.sendStatus(200);
+    } else
+    res.send("Wrong input");
+  }
 }
 
 exports.delete = function(req, res){
-  Todos.delete(req.params.id, function (err, todo) {
-    assert.equal(err, null)
-    res.send(todo);
-  })
+  if (req.params.id.length != charNum)
+    res.send("Wrong length");
+  else{
+    Todos.delete(req.params.id, function (err, todo) {
+      assert.equal(err, null)
+      res.send(todo);
+    })
+  }
 }
