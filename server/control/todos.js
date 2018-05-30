@@ -104,7 +104,7 @@ exports.comment = function(req, res){
   if (req.params.id.length != charNum)
     res.send("Wrong length");
   else{
-    if (req.body.complete != null ) {
+    if (req.body.comments != null ) {
     Todos.update(req.params.id,
       {
         $push:{
